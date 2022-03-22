@@ -1,38 +1,233 @@
-.App {
-  text-align: center;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+  overflow: hidden;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+:root {
+  --black: #333;
+  --white: #fff;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+header {
+  position: absolute;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 40px 100px;
+  z-index: 10;
+}
+ 
+header .logo {
+  position: relative;
+  display: inline-flex;
+  color: var(--black);
+  text-decoration: none;
+  font-size: 3em;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+header.active .logo{
+    color: var(--white);
+}
+.rightSide {
+  display: flex;
+}
+.btns {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  cursor: pointer;
+  margin-left: 10px;
+  font-size: 2em;
+}
+.menuToggle {
+  overflow: hidden;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-left: 10px;
+}
+.menuToggle span {
+  position: absolute;
+  width: 30px;
+  height: 4px;
+  right: 0;
+  background: var(--black);
+  border-radius: 3px;
+  transition: 0.5s;
+}
+header.active .rightSide .menuToggle span{
+  background :var(--white);
+}
+.menuToggle span:nth-child(1) {
+  transform: translateY(-10px);
+  width: 20px;
+}
+.menuToggle span:nth-child(2) {
+  transform: translateY(10px);
+  width: 15px;
+}
+.menuToggle.active span:nth-child(1) {
+  width: 30px;
+  transform: translateY(0) rotate(-130deg);
+  transition-delay: 0.2s;
+}
+.menuToggle.active span:nth-child(2) {
+  width: 30px;
+  transform: translateY(0) rotate(130deg);
+  transition-delay: 0.2s;
 }
 
-.App-link {
-  color: #61dafb;
+.menuToggle.active span:nth-child(3) {
+  transform: translateX(-60px);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.dayNight{
+  overflow: hidden;
+  width: 100px;
+  transition: 0.5s;
+}
+.dayNight .md{
+   transition: 0.5s;
+   color: var(--black);
+}
+.dayNight.active .md{
+   color: var(--white);
+}
+.dayNight .md:nth-child(2),
+.dayNight.active .md:nth-child(1){
+  opacity: 1;
+}
+.dayNight.active .md:nth-child(2),
+.dayNight .md:nth-child(1){
+  opacity: 0;
+}
+.dayNight .md:nth-child(1){
+  transform: translateX(100px);
+}
+.dayNight.active .md:nth-child(1){
+  transform: translateX(20px);
+}
+.dayNight.active .md:nth-child(2){
+ transform: translateX(-80px);
+}
+.main {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+.main .video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  user-select: none;
+  /* 동영상하고 그림하고 합쳤다 */
+  mix-blend-mode: screen;
+  transition: 1s;
+}
+.main.active .mask {
+  filter: invert(1);
+  mix-blend-mode: multiply;
+}
+.main .h2 {
+  position: relative;
+  font-variant: small-caps;
+  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  top: 50vh;
+  z-index: 3;
+  font-size: 15vw;
+  color: #fff;
+  text-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 50px 50px rgba(0, 0, 0, 0.5);
+}
+.navigation {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 30%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--white);
+  z-index: 15;
+  transition: 1s;
+}
+header.active ~ .navigation{
+  background: var(--black);
+}
+.navigation.active {
+  left: 0;
+}
+.navigation li {
+  list-style: none;
+  cursor: pointer;
+}
+/* .navigation li:hover {
+  background: var(--black);
+  color: var(--white);
+} */
+.navigation li a:hover {
+  background: var(--black);
+  color: var(--white);
+}
+header.active ~ .navigation li a:hover {
+  background: var(--white);
+  color: var(--black);
+}
+
+.navigation li a {
+  display: inline-flex;
+  margin: 30px 0;
+  height: 50px;
+  font-size: 1.35em;
+  text-decoration: none;
+  color: var(--black);
+  padding: 5px 20px;
+  border-radius: 40px;
+}
+header.active ~ .navigation li a{
+  color: var(--white);
+}
+
+@media (max-width: 768px) {
+  header {
+    padding: 20px;
   }
-  to {
-    transform: rotate(360deg);
-  }
+  .navigation {
+  width: 60%;
+}
+  
 }
